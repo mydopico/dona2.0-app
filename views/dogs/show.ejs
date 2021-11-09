@@ -1,0 +1,337 @@
+<% layout('layout/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+ <div class="row">	
+  <div class="col-9 offset-2">	
+	   
+    <div class="mb-5">	
+	 <section class="blog-section">	
+	   <h1 id="title" class="mt-5"><%= walk.title %></h1>
+	   <p class="text-muted small">Por <%= walk.author.username %>  
+		   <span class="mx-2">|</span>  
+		   <%= moment(walk.createdAt).locale('es').format('LL') %>
+	   </p>
+	   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non odio a nibh bibendum tempor eget sed neque.</p>
+	
+	
+        <!-- ************* RATING AND COMMENTS NUMBER ************************** -->				
+	    <% var total = 0 %>
+		<% walk.comments.forEach(function(comment){ %>                             
+                <% total  += comment.rating %>            
+        <% }) %>	
+		<% if (walk.comments.length === 0) { %>	
+                <p class="comment-text text-muted small my-0">
+					<i class="far fa-star"></i> <span class="me-3">0</span> 
+					 <i class="far fa-comments"></i>  <span><%= walk.comments.length %></span>
+		       </p>
+        <%  } else { %>					       
+				<% var average = Math.round(total/walk.comments.length* 10) / 10 %>
+				<p class="text-muted my-0" class="tooltip-test" 
+						  title="Valoración media ~ Número de comentarios">					     
+					 <i class="far fa-star"></i> <span class="me-3"><%= average %></span> 
+					 <i class="far fa-comments"></i>  <span><%= walk.comments.length %></span>
+				</p>				
+		<%  } %>	
+				
+		<!-- *************END RATING************************** --> 
+		
+		<!-- ****************** CAROUSEL ************************    -->
+	<!-- <h4 id="title" class=" mt-5 mb-3">Fotos</h4>    -->
+	<div class="carousel-show">  
+		   
+	<div id="carouselWalk" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">		 
+       <div class="carousel-inner">	 		
+		  <% walk.image.forEach((img, i) => { %> 		   
+          <div class="carousel-item <%= i === 0 ? "active" : "" %> ">
+			  <div class=" d-flex justify-content-center">
+			     <div class="card-carousel border-light" style="width: 35rem;" > 
+                   <img id="img-show" src="<%= img.url %>" class="img-thumbnail d-block w-100" alt="">		
+					 <div class="card-body">
+						 <h5 id="title" class="text-center text-muted my-2">Foto <%= i + 1%></h5>
+			         </div> 
+			     </div> 
+			  </div> 
+          </div>			   
+		 <% }) %>      
+      </div> <!-- end carousel-inner -->
+		  
+		
+      <% if(walk.image.length > 1) { %>		       
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselWalk" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+		 <button class="carousel-control-prev" type="button" data-bs-target="#carouselWalk" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+	  <% } %>	
+    </div>  <!-- END CAROUSEL -->
+
+	</div> 	<!-- END CAROUSEL-SHOW -->
+		 
+	 <!-- SOCIAL ICONS SHARE -->
+	<p class="text-center mb-5"> 					   
+			   <a type="button" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwdb-test1.run-us-west2.goorm.io%2Fbooks%2F5f09d258b7cbb00286167bec"                           
+				  class="btn-floating btn-fb btn-sm"> <i class="fab fa-facebook-f"></i>
+               </a>
+               <a type="button" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwdb-test1.run-us-west2.goorm.io%2Fbooks%2F5f09d258b7cbb00286167bec" 
+				  class="btn-floating btn-tw btn-sm"> <i class="fab fa-twitter"></i>
+               </a>             
+               <a type="button" href="#" 
+				  class="btn-floating btn-google btn-sm"> <i class="fab fa-google"></i>
+               </a>	
+	</p>	 
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non odio a nibh bibendum tempor eget sed neque. 
+	</p>	
+    </section>	 <!-- END SECTION -->	
+	
+	<section class="blog-section-data">	
+	   <h4 id="title" class="my-4">Mapa ruta</h4>	
+	   <!-- ***********  MAP ***************** -->
+       <div class="my-5" id='map' style='width: 100%; height: 530px;'></div>
+		  
+       <!--  ************************* ROUTE DATA ****************************   -->		  
+	   <h4 id="title" class="my-4">Datos ruta</h4> 
+	   <!-- **** First row **** -->
+       <div id="route-data" class="row mb-5">
+        <div class="col-sm-3">
+          <div class="card h-100">
+            <div class="card-body">
+		      <h5 class="card-title">Inicio ruta<span class="float-end" >
+				  <i id="start" class="fas fa-map-marker-alt"></i> </span></h5>
+              <p class="card-text text-muted small"><%= walk.location %></p>        
+            </div>
+          </div>
+       </div>
+	   <div class="col-sm-3">
+          <div class="card h-100">
+            <div class="card-body">
+		      <h5 class="card-title">Destino<span class="float-end" >
+				  <i id="end" class="fas fa-map-marker-alt"></i> </span></h5>
+              <p class="card-text text-muted small"><%= walk.end %></p>        
+            </div>
+          </div>
+       </div>	 
+       <div class="col-sm-3">
+         <div class="card h-100">
+           <div class="card-body">
+             <h5 class="card-title">Distancia <span class="float-end" ><i class="fas fa-route"></i> </span></h5>
+			 <p class="card-text text-muted"><%= walk.distance %> km</p>       
+           </div>
+         </div>
+       </div>
+	   <div class="col-sm-3">
+         <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Tiempo <span class="float-end" ><i class="far fa-clock"></i> </span></h5>
+            <p class="card-text text-muted"><%= walk.time %> minutos</p>       
+          </div>
+        </div>
+      </div>
+	 </div>	<!-- end row -->
+	
+	<!-- **** Second row **** -->	
+	 <div id="route-data" class="row mb-5">			 
+	  <div class="col-sm-3">
+       <div class="card h-100">
+         <div class="card-body">
+           <h5 class="card-title">Desnivel <span class="float-end" ><i class="fas fa-arrow-up"></i> </span></h5>
+           <p class="card-text text-muted"><%= walk.ascent %> m.</p>       
+         </div>
+       </div>
+     </div>	   
+	    <div class="col-sm-3">
+          <div class="card h-100">
+           <div class="card-body">
+             <h5 class="card-title">Desnivel <span class="float-end" ><i class="fas fa-arrow-down"></i> </span></h5>
+             <p class="card-text text-muted"><%= walk.descent %> m.</p>       
+           </div>
+         </div>
+       </div>
+	   <div class="col-sm-3">
+        <div class="card h-100">
+         <div class="card-body">
+           <h5 class="card-title">Dificultad <span class="float-end" ><i class="fas fa-hiking"></i> </span></h5>
+           <p class="card-text text-muted"><%= walk.difficulty %></p>       
+         </div>
+        </div>
+       </div>
+	   <div class="col-sm-3">
+        <div class="card h-100">
+         <div class="card-body">
+           <h5 class="card-title">Tipo de ruta <span class="float-end" ><i class="fas fa-infinity"></i></span></h5>
+           <p class="card-text text-muted"><%= walk.layout %></p>       
+         </div>
+        </div>
+       </div>	 
+    </div> <!-- end row -->	
+		
+   </section>		
+	<!-- **************************** -->
+  </div> <!-- end div mb-5 --> 	
+
+	 	
+	
+	<section class="blog-section">	
+    <!-- ************* CARD WALKS ************************ -->		
+	 <div class="card-show border-light my-5" >
+		 <!-- <div class="card-body"> -->
+             <h4 id="title" class="card-title my-4">Descripción</h4>
+             <p class="card-text">					
+				<%- walk.text.replace(/\n/g, '<br>') %>
+			 </p>
+          <!-- </div> -->
+		 
+		  <%  if( currentUser && walk.author.equals(currentUser._id))  {%>
+		  <div class="card-body p-0">						 
+             <a class="btn btn-sm btn-outline-success px-4 my-3" href="/walks/<%=walk._id %>/edit" >Editar</a>
+             <!-- <a href="#" class="card-link">Another link</a> -->
+			  <form class="d-inline my-3" action="/walks/<%= walk._id %>?_method=DELETE" method="POST">
+				<button class="btn btn-sm btn-outline-danger px-4" onclick="return confirm('¿Está seguro de que quiere borrar?');">Borrar</button>
+		      </form>			
+          </div>
+		   <% } %>                  
+     </div> <!-- end card WALKS -->
+	
+	 </section>	
+	 <hr>  
+	<!-- ***************************  COMMENTS *****************************    -->
+	 <section class="blog-section">	
+	 	 
+	   <h3 id="title" class="text-center mt-5">COMENTARIOS</h3>
+	  <%  if(!currentUser)  {%>
+	    <p class="text-center text-muted small mb-5">Inicia sesión o regístrate para dejar tu comentario</p>
+	  <% } %>
+	  
+	    <!-- BOX LEAVE COMMENT -->
+	   <%  if( currentUser)  {%>	  
+		<div class="leave-comment my-5">			
+		    <a class="cbutton btn btn-success px-5 ">Deja tu comentario</a>		   
+			<span class="float-end" ><i class="far fa-comments fa-2x"></i> <%= walk.comments.length %></span>	
+		    
+		   <div class="cbox mt-4" class="" style="display:none">	
+		     <form action="/walks/<%=walk._id%>/comments" method="POST" class="mb-3 validated-form" novalidate>				
+		        <div class="mb-1">				   
+			      <label class="form-label" for="rating">Valoración <span class="text-muted small">(del 1 a 5)</span>:</label>
+				  <input class="form-control" name="comment[rating]" id="rating">	 				
+		        </div>	<!-- END DIV MB-1 -->				   
+		        <div class="mb-3">
+				  <label class="form-label" for="body">Comentario:</label>
+				  <textarea class="form-control" name="comment[body]" id="body" cols="30" rows="3" required></textarea>		
+		        </div>				    
+			    <button class="btn btn-sm btn-success px-5">Enviar</button>			    
+		     </form>
+		   </div> <!-- end cbox  -->	   
+		  
+		 </div>	<!-- end leave-comment --> 
+	   <% } %>  
+	   
+		
+	   <!-- CARDS OF COMMENTS -->
+		<% for(let comment of walk.comments){ %>	
+		<div class="card-show border-light mb-3">		
+	    	<div class="card-body">		
+			  <h5 class="card-title"><%= comment.author.username %></h5> 
+				
+				 <!-- *************RATING************************** -->	  							  
+				<%   if(comment.rating === 0) { %>
+					<p class="comment-text text-muted small">No hay valoraciones aún</p>
+			    <%  } else { %>			                     	     
+                    <p class="text-muted">
+			<%- '<i class="fa fa-star checked"></i>'.repeat(comment.rating) %><%- '<i class="far fa-star"></i>'.repeat(5 - comment.rating) %>
+				    </p>  						      
+				<%  }  %>	                         
+			     <!-- *************RATING************************** -->  	
+				
+						 
+				<p class="card-text"><%= comment.body %></p>				
+				<% if(currentUser && comment.author.equals(currentUser._id)) { %>					 
+				<form action="/walks/<%=walk._id %>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+					<button class="btn btn-sm btn-outline-primary px-4" onclick="return confirm('¿Está seguro de que quiere borrar?');">
+						Borrar
+					</button>
+				</form>
+				<% } %>			  
+	    	</div> <!-- end card-body -->
+			<hr>
+		</div> <!-- end card -->
+		<% } %>
+		
+	  </section>
+	  
+	  <!-- OTHER ROUTES -->
+	 
+	  <section class="blog-section">
+	  <% if(walks.length > 1 ) {%>
+	   <h4 id="title" class="my-3">OTRAS RUTAS RECOMENDADAS</h4>
+		<div class="row row-cols-1 row-cols-md-3 g-4 mt-3 mb-5">
+		
+			<!-- <for (let walk of walks){ %>	
+            < walk.image.forEach((img, i) => { %> 		-->
+			
+			
+			<% let currentWalk =  walk._id  %>			
+						
+						
+			
+			 <% walks.slice(0, 3).forEach(function(walk) { %>	
+			<!-- < for (let walk of walks) { %>		 -->
+			
+			  <% if(!walk._id.equals(currentWalk._id)) {%>					
+              <div class="col">	   
+			    <div class="card border-light h-100" style="width: 13rem;" >				
+						<%if(walk.image.length) {%>
+						<img class="img-card" src="<%= walk.image[0].url %>">
+						<% }else {%>
+						<img class="img-fluid" alt=""
+                src='https://res.cloudinary.com/yolupa/image/upload/v1632493904/dogApp/deyhuvdrt8trtkaodaww.jpg'>
+                        <% } %>					
+						<div class="card-body">
+							<p id="title" class="card-title text-center">
+								
+								<a id="otherRoutes" class="btn btn-sm" href="/walks/<%= walk._id %>"><%= walk.title %>
+							    </a>	
+							</p>							
+						</div>	<!-- end card-body -->					
+				</div>		<!-- end card -->			
+			</div>		
+			 <% } %>	
+		  <!-- </div>				 -->
+		
+			<% }) %>	
+			</div>	
+	   <% } %> <!-- end walks.length > 1 -->	
+	   
+	   <p><a class="btn btn-outline-success px-5 mb-5" href="/walks">Todas las rutas</a></p>
+		  
+	   </section>	  
+		 	   
+		
+	   <br>
+
+		
+  </div> <!-- end  col-9 offset-2 -->	 
+ </div> <!-- end row --> 
+		
+       		
+		
+<script>
+	const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+	const walk = <%- JSON.stringify(walk) %> 
+		  
+</script>
+
+<script>
+	$('.cbutton').click(function(e) {
+       e.preventDefault();
+       var cbox = $(this).siblings('.cbox');
+       $(cbox).toggle(function(){
+		   
+       });
+    });	 
+</script>
+		
+<script src="/javascript/showPageMap.js"></script>
+		
+	

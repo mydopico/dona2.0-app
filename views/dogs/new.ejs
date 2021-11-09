@@ -1,0 +1,162 @@
+<% layout('layout/boilerplate')%>
+
+<div class="row">
+	<div class="my-5">
+		<h2 id="title" class="text-center">Añade nueva ruta <i class="fas fa-route fa-2x"></i> </h2>		
+	</div>
+		
+	<div class="col-6 offset-3">               
+			<form action="/walks" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+				<h6 class="mb-3">Datos de la ruta</h6>
+				<div class="mb-4">
+					<label class="form-label visually-hidden" for="title1">Nombre</label>
+			        <input class="form-control" type="text" name="walk[title]" id="title1" placeholder="Nombre" required>	
+					<div class="valid-feedback">
+						Tiene buena pinta!
+					</div>
+				</div>
+				<div class="mb-4">
+					<label class="form-label visually-hidden" for="text">Descripción</label>
+					<textarea class="form-control" type="text" name="walk[text]" id="text" placeholder="Descripción" required></textarea>		
+				    <div class="valid-feedback">
+						Tiene buena pinta!
+				    </div>	
+				</div>
+				<div class="mb-4">
+					<label class="form-label visually-hidden" for="location">Inicio</label>
+			        <input class="form-control" type="text" name="walk[location]" id="location" placeholder="Inicio" required>	                     <div class="valid-feedback">
+						Tiene buena pinta!
+				    </div>	
+				</div>
+				<!-- <div class="mb-3">
+					<label class="form-label visually-hidden" for="start">Punto de inicio</label>
+			        <input class="form-control" type="text" name="walk[start]" id="start" placeholder="Punto de inicio" required>	                     <div class="valid-feedback">
+						Tiene buena pinta!
+				    </div>	
+				</div> -->
+				<!-- <div class="mb-3">
+					<label class="form-label visually-hidden" for="endName">Destino</label>
+			        <input class="form-control" type="text" name="walk[endName]" id="endName" placeholder="Nombre Destino" required>	                     <div class="valid-feedback">
+						Tiene buena pinta!
+				    </div>	
+				</div> -->
+				<div class="mb-4">
+					<label class="form-label visually-hidden" for="end">Destino</label>
+			        <input class="form-control" type="text" name="walk[end]" id="end" placeholder="Destino" required>	                                         <div class="valid-feedback">
+						Tiene buena pinta!
+				    </div>	
+				</div>	
+				
+			   <div class="mb-4">
+                  <label class="form-label visually-hidden" for="distance">Distancia</label>
+                  <div class="input-group">                   
+                      <input type="number" class="form-control" id="distance" placeholder="Distancia" aria-label="distance"
+                        aria-describedby="distance-label" name="walk[distance]" required>
+					  <span class="input-group-text" id="distance-label">kms</span>
+                  </div>
+                  <div class="valid-feedback">
+                    Tiene buena pinta!
+                  </div>
+               </div>
+				
+			    <div class="mb-4">
+                  <label class="form-label visually-hidden" for="time">Tiempo</label>
+                  <div class="input-group">                   
+                      <input type="number" class="form-control" id="time" placeholder="Tiempo" aria-label="time"
+                        aria-describedby="time-label" name="walk[time]" required>
+					  <span class="input-group-text" id="time-label">minutos</span>
+                  </div>
+                  <div class="valid-feedback">
+                    Tiene buena pinta!
+                  </div>
+               </div>		
+				
+			   <div class="mb-4">
+                  <label class="form-label visually-hidden" for="ascent">Desnivel de ascenso</label>
+                  <div class="input-group">                   
+                      <input type="number" class="form-control" id="ascent" placeholder="Desnivel de ascenso" aria-label="ascent"
+                        aria-describedby="ascent-label" name="walk[ascent]" required>
+					  <span class="input-group-text" id="ascent-label">metros</span>
+                  </div>
+                  <div class="valid-feedback">
+                    Tiene buena pinta!
+                  </div>
+               </div>
+				
+			    <div class="mb-4">
+                  <label class="form-label visually-hidden" for="descent">Desnivel de descenso</label>
+                  <div class="input-group">                   
+                      <input type="number" class="form-control" id="descent" placeholder="Desnivel de descenso" aria-label="descent"
+                        aria-describedby="descent-label" name="walk[descent]" required>
+					  <span class="input-group-text" id="descent-label">metros</span>
+                  </div>
+                  <div class="valid-feedback">
+                    Tiene buena pinta!
+                  </div>
+               </div>			
+				
+				<!-- <div class="mb-4">
+					<label class="form-label visually-hidden" for="difficulty">Dificultad</label>
+			        <input class="form-control" type="text" name="walk[difficulty]" id="difficulty" placeholder="Dificultad" required>		
+					<div class="valid-feedback">
+						Tiene buena pinta!
+					</div>
+				</div> -->
+			<hr>	
+			<h6 class="mb-3">Nivel de dificultad</h6>	
+			<div class="mb-4">	
+				<div class="form-check">
+                  <input class="form-check-input" type="radio" name="walk[difficulty]" id="exampleRadios1" value="Fácil" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                      Fácil
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="walk[difficulty]" id="exampleRadios2" value="Intermedio">
+                 <label class="form-check-label" for="exampleRadios2">
+                     Intermedio
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="walk[difficulty]" id="exampleRadios3" value="Díficil">
+                 <label class="form-check-label" for="exampleRadios3">
+                     Díficil
+                 </label>
+               </div>
+			</div>	
+				<!-- <div class="mb-3">
+					<label class="form-label" for="image">Image Url</label>
+		        	<input class="form-control" type="text" name="walk[image]" id="image" placeholder="Image" required>					
+				</div> -->	
+			<hr>	
+			<h6 class="mb-3">Tipo de ruta</h6>	
+			<div class="mb-4">	
+				<div class="form-check">
+                  <input class="form-check-input" type="radio" name="walk[layout]" id="exampleRadios1" value="Solo ida" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                      Solo ida
+                 </label>
+               </div>
+               <div class="form-check">
+                 <input class="form-check-input" type="radio" name="walk[layout]" id="exampleRadios2" value="Circular">
+                 <label class="form-check-label" for="exampleRadios2">
+                     Circular
+                 </label>
+               </div>              
+			</div>
+				
+			<hr>	
+				
+			<h6 class="mb-3">Selecciona fotos</h6>	
+				<div class="mb-4">				
+				    <input type="file" name="image" multiple>		
+				</div>	
+		
+				<div class="d-grid gap-2 my-4">
+					<button class="btn btn-success">Añade caminata</button>						
+				</div>					
+		    </form>
+		<a class="btn btn-outline-success px-5 mb-3" href="/walks">Cancela</a>		
+	</div>
+</div>
+

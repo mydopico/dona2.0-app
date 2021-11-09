@@ -1,0 +1,127 @@
+<% layout('layout/boilerplate')%>
+
+				
+			<!-- ************ TITLE ****************** -->
+		   <div class="my-5">
+			   
+		    <div class="card border-light" >
+              <div class="row g-0"> 
+				  
+                 <div class="col-md-7  d-flex align-items-center">
+                   <div class="card-body">					    
+                      <h1 id="title" class="card-title text-center">Caminando con Doña</h1> 
+					  <p class="text-muted text-center">Descubre las mejores rutas de senderismo<br>
+						   con mi perrita Doña. <br>						 
+					  </p>	
+					   <div id="route" class="col-md-6 col-lg-5 d-none d-md-block">
+						   <i id="footprint-route" class="fas fa-paw mb-4"></i>
+					        <i id="footprint-route" class="fas fa-paw mb-4"></i>						   
+					   </div>
+					   <div id="route1" class="col-md-6 col-lg-5 d-none d-md-block">
+						   <i id="footprint-route1" class="fas fa-paw mb-4"></i>
+					        <i id="footprint-route1" class="fas fa-paw mb-4"></i>						   
+					   </div>	
+					    <div id="route2" class="col-md-6 col-lg-5 d-none d-md-block">
+						   <i id="footprint-route2" class="fas fa-paw mb-4"></i>
+					        <i id="footprint-route2" class="fas fa-paw mb-4"></i>						   
+					   </div>	
+                   </div>  <!-- end card-body -->					
+                 </div> <!-- end col-md-7 -->
+				  
+	             <div class="col-md-5  d-none d-md-block d-flex align-items-center p-5">					 
+                   <img id="dog-index" src="/images/dona5.jpg" class="img-fluid " alt="...">						  
+                 </div> <!-- end col-md-5 -->
+				  
+              </div> <!-- end row -->
+             </div>	 <!-- end card -->
+			   
+	        </div>	<!-- end my-5 -->
+			
+			<!-- ************** STATISTICS ***************** -->
+	     <div>			
+			<div class="row my-3">
+               <div class="col-sm-4">
+                 <div class="card border-light">
+                   <div id="statistics-index" class="card-body text-center border border-1">	
+					  <% let total = 0; %>
+                      <% for(let walk of walks) { %>
+                         <% total += walk.distance; %>					      
+                      <% } %>					  				      				       
+					       <h1 class="card-title"><%= total %></h1>					
+                     <h5 class="card-text"><i class="fas fa-route"></i>  KMs</h5>       
+                   </div>
+                </div>
+              </div>
+			   <div class="col-sm-4">
+                 <div class="card border-light">
+                   <div id="statistics-index" class="card-body text-center border border-1">					  				      				        <% let totalTime = 0; %>
+                      <% for(let walk of walks) { %>
+                         <% totalTime += walk.time; %>					      
+                      <% } %>		
+					       <h1 class="card-title"><%= totalTime %></h1>
+					
+                     <h5 class="card-text"><i class="fas fa-route"></i> Minutos</h5>       
+                   </div>
+                </div>
+              </div>	
+              <div class="col-sm-4">
+                <div class="card border-light">
+                  <div  id="statistics-index"  class="card-body text-center border border-1">
+                    <h1 class="card-title"><%= walks.length %> </h1>
+                    <h5 class="card-text"><i class="fas fa-hiking"></i>  Rutas</h5>       
+                  </div>
+                </div>
+               </div>
+              </div>
+			    <%  if( currentUser)  {%>
+				   <a class="btn bt-lg btn-success px-5 my-5" href="/walks/new">Nueva ruta</a>
+			    <% } %> 
+        </div>
+			
+			
+			<!-- *********** CARDS WITH WALKS *************** -->		
+        <br>
+        <h2 id="title" class="text-center my-5">RUTAS</h2>
+		<div class="row row-cols-1 row-cols-md-2 g-4 mt-3 mb-5">
+			<% for (let walk of walks){ %>
+		
+           <div class="col">	   
+			<div class="card border-light h-100" mb-3>
+				<div class="row">
+					<div class="col-md-5">	
+						<%if(walk.image.length) {%>
+						<img class="img-card" src="<%= walk.image[0].url %>">
+						<% }else {%>
+						<img class="img-fluid" alt=""
+                src='https://res.cloudinary.com/yolupa/image/upload/v1632493904/dogApp/deyhuvdrt8trtkaodaww.jpg'>
+                        <% } %>
+					</div>	
+					<div class="col-md-7">
+						<div class="card-body">
+							<h6 id="title" class="card-title">
+								<%= walk.title %>	
+							</h6>							
+							<p class="card-text">
+								<%= walk.text.substring(0, 120)+ "..." %>
+							</p>
+							<p class="card-text">
+								<small class="text-muted"><%= moment(walk.createdAt).locale('es').format('LL') %></small>
+							</p>
+							<a class="btn btn-outline-success px-5" href="/walks/<%= walk._id %>">Ver más
+								<i id="footprint-index" class="fas fa-paw"></i>
+							</a>
+						</div>						
+					</div>
+				</div>				
+			</div>
+			   
+			   </div>				
+		
+			<% } %>	
+			</div>	
+		 	   
+		
+		
+		
+		
+	

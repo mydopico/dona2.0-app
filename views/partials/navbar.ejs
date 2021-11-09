@@ -1,0 +1,54 @@
+      <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+          <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+               
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+					aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+			  			   
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <p id="nav-title" class="float-md-left mb-0">Doña 2.0 
+						<i id="footprint" class="fas fa-paw fa-2x"></i>
+				</p>
+				<div class="navbar-nav ms-auto">
+				    <a  class="nav-link" aria-current="page" href="/">Portada</a> 
+                    <a class="nav-link active" href="/walks">Caminando con Doña</a>                   
+				<!-- </div>	
+				<div class="navbar-nav ms-auto">	 -->
+					<% if(!currentUser) {%>					 
+					  <a class="nav-link" href="/register">Regístrate</a>
+					  <a class="nav-link" href="/login">Iniciar sesión</a>
+					 <% } else {%>
+					  <a class="nav-link" href="#"><%= currentUser.username %></a>
+					  <a class="nav-link" href="/logout">Cerrar sesión</a>						   
+					 <% } %>
+				</div>
+				
+           </div>
+         </div>
+       </nav>
+
+<script> 
+	
+  const currentPageUrl = location.href;  
+ 
+	// location.origin + "/" + pathArray[i] === currentPageUrl ----  menuItem[i].origin + "/" + pathArray[i] === currentPageUrl
+  // console.log(location.href) console.log(location.origin) console.log(location.pathname) console.log(pathArray)
+ 
+  const menuItem = document. getElementsByClassName("nav-link");
+	
+  for(let i=0; i<menuItem.length; i++){	  	   	
+	     // const  items = menuItem[i].href.split( '/' )
+		   // console.log(menuItem[i].href)
+	     // const base = menuItem[i].origin + "/" + items[3]	           
+       if(menuItem[i].href == currentPageUrl ) {		 	   
+            menuItem[i].className = "nav-link active"; 	     
+       } else {
+            menuItem[i].className = "nav-link";
+       }	
+  }
+	
+	
+
+</script>
+

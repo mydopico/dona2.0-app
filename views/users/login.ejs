@@ -1,0 +1,43 @@
+<% layout('layout/boilerplate')%>
+
+<div class="container d-flex justify-content-center align-items-center mt-5 mb-5">
+   
+        <!-- <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4"> -->
+            <div class="card shadow" style="max-width: 45rem;">
+				<div class="row g-0">
+                 <div class="col-md-6 col-lg-5 d-none d-md-block">
+			       	<img class="img-thumbnail rounded" src="/images/dona7.jpg" alt=""  />
+				 </div>	 
+                 <div class="col-md-6 col-lg-7 d-flex align-items-center p-5">   
+                    <div class="card-body">						
+					  <h2 id="title" class="card-title text-center mb-4">Doña 2.0 
+						      <i id="footprint" class="fas fa-paw fa-2x"></i>
+					  </h2>					  
+                      <h5 class="mb-3">Inicia sesión</h5>
+                      <form action="/login" method="POST" class="validated-form" novalidate>
+                         <div class="mb-3">
+                            <label class="form-label visually-hidden" for="username" >Usuario</label>
+                            <input class="form-control form-control-md" type="text" id="username" name="username" placeholder="Usuario" autofocus required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                         </div>
+                         <div class="mb-3">
+                            <label class="form-label visually-hidden" for="password">Contraseña</label>
+                            <input class="form-control " type="password" id="password" name="password" placeholder="Contraseña" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                         </div>
+                         <button class="btn btn-success w-100 mb-3">Inicia sesión</button>
+						  <p class="mb-2 pb-lg-2 text-muted small">¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
+                        <a class="btn btn-outline-success btn-sm mt-2" href="/walks">Volver</a>	
+                     </form>
+						
+                 </div> 	 <!-- end card-body -->
+			   </div>	 <!-- end col-md-8 -->
+            </div>  <!-- end card shadow -->
+        </div>
+    <!-- </div> -->
+</div>
+	
