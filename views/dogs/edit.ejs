@@ -132,12 +132,27 @@
 				       <img src="<%= img.thumbnail %>" class="img-edit card-img-top" alt="">
 					   <div class="form-check-inline text-center p-3">
 						   <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
-						   <label for="">Borrar</label>
+						    <label for="">Borrar</label> 
 				       </div>
 				  
 					</div>  
 			    </div>	
-				<% }) %>	
+				<% }) %>
+				<% walk.image.forEach(function(img, i){ %>
+				<div class="col-6  mt-3 mb-3">
+				<div class="card h-100 border-success " >						
+				       
+					   <div class="form-check-inline text-center p-3">
+						   <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+						    <label for=""><%= img.filename %></label> 
+				       </div>
+				  
+					</div>  
+			    </div>	
+				<% }) %>
+				
+				
+				
 					 
 			<!-- </div>	 -->
 		    </div>			
@@ -160,7 +175,7 @@
       }
 	var y = document.getElementsByClassName("form-check-input");
     var i;  
-	for (i = 0; i < y.length; i++) {
+	for (i = 0; i < y.length; i++) { 
         if (y[i].value === "<%= walk.layout %>") {
            y[i].checked = true;
         }
